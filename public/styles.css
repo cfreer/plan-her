@@ -1,0 +1,25 @@
+@font-face {
+  font-family: keep-on-truckin;
+  src: url(KeeponTruckin.ttf);
+}
+
+body {
+  background-color: lightgrey;
+  text-align: center;
+}
+
+main {
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+h1 {
+  padding: 5px;
+  font-size: 40px;
+  color: white;
+  text-shadow: 2px 2px 2px black;
+  font-family: keep-on-truckin;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
+}
