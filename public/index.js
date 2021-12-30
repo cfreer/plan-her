@@ -10,6 +10,7 @@
 
 "use strict";
 (function() {
+  const VIEWS = ["home-view", "class-view", "add-class-view", "error-view"];
 
   window.addEventListener("load", onLoad);
 
@@ -17,7 +18,84 @@
    * Once the page loads, sets up original functionality.
    */
   function onLoad() {
-    // TODO
+    setUpBtns();
+    id("submit-class-btn").addEventListener("click", submitClass);
+  }
+
+  /**
+   * Submits the class to the database.
+   */
+  function submitClass() {
+    let name = id("name").value;
+    let color = id("color").value;
+    if (name !== "") {
+      let data = new FormData();
+      data.append("name", name);
+      data.append("color", color);
+      let url = "/add/class";
+      fetch(url, {method: "POST", body: data})
+        .then(statusCheck)
+        .then(resp => resp.text())
+        .catch(handleError);
+    }
+  }
+
+  /**
+   * Sets up the buttons to switch views when clicked.
+   */
+  function setUpBtns() {
+    for (let i = 0; i < VIEWS.length - 1; i++) {
+      let button = VIEWS[i].replace("view", "btn");
+      id(button).addEventListener("click", switchViewsClicked);
+    }
+  }
+
+  /**
+   * Switches to the view corresponding to the button clicked.
+   */
+  function switchViewsClicked() {
+    let view = this.id.replace("btn", "view");
+    switchViews(view);
+  }
+
+  /**
+   * Shows the given view and hides all other views.
+   * @param {String} viewId - the id of the view to be switched to.
+   */
+  function switchViews(viewId) {
+    for (let i = 0; i < VIEWS.length; i++) {
+      let view = VIEWS[i];
+      let viewElement = id(view);
+      if (view === viewId) {
+        show(viewElement);
+        viewElement.classList.add("flex");
+      } else {
+        hide(viewElement);
+        viewElement.classList.remove("flex");
+      }
+    }
+  }
+
+  /**
+   * Handles any errors that may occur by displaying a useful message to the user.
+   * @param {Error} err - the error that occured while trying to fetch data.
+   */
+  function handleError(err) {
+    console.log(err);
+    switchViews("error-view");
+    for (let i = 0; i < VIEWS.length - 1; i++) {
+      let button = VIEWS[i].replace("view", "btn");
+      id(button).disabled = true;
+    }
+
+    let message = qs("#error-view h3");
+    let errorMessage = err.message;
+
+    if (errorMessage === "Failed to fetch") {
+      message.textContent += "Network disconnected. Please check your wifi network.";
+    } else {
+      message.textContent += errorMessage;
+    }
   }
 
   /**

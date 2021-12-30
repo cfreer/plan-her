@@ -3,15 +3,37 @@
   src: url(KeeponTruckin.ttf);
 }
 
+@font-face {
+  font-family: kb-gobble-day;
+  src: url(KBGobbleDay.ttf);
+}
+
+header {
+  background-color: rgb(179, 255, 179);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  margin: 10px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 22px;
+  height: 40px;
+  width: 90px;
+}
+
 body {
   background-color: lightgrey;
   text-align: center;
+  margin: 0px;
 }
 
-main {
-  margin: auto;
-  display: flex;
-  justify-content: space-around;
+input {
+  width: 150px;
+  font-size: 18px;
+  text-align: center;
 }
 
 h1 {
@@ -22,4 +44,52 @@ h1 {
   font-family: keep-on-truckin;
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: black;
+  margin: 10px;
+}
+
+label {
+  font-family: kb-gobble-day;
+  font-weight: bold;
+  font-size: 20px;
+  margin-right: 5px;
+  margin-top: 9px;
+  height: 33px;
+}
+
+.flex {
+  display: flex;
+}
+
+.hidden {
+  display: none;
+}
+
+.input {
+  display: flex;
+  margin: 5px;
+}
+
+.small-btn {
+  font-size: 18px;
+  width: 80px;
+  height: 30px;
+}
+
+#color {
+  padding: 0px;
+  height: 40px;
+}
+
+#home-view {
+  justify-content: space-around;
+}
+
+#class-view {
+  justify-content: center;
+}
+
+#add-class-view {
+  align-items: center;
+  flex-direction: column;
+  margin: 10px;
 }

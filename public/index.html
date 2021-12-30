@@ -11,13 +11,42 @@
   </head>
 
   <body>
+    <header>
+      <nav>
+        <button id="home-btn">Home</button>
+        <button id="class-btn">Classes</button>
+      </nav>
+    </header>
     <main>
-      <div id="todo">
-        <h1>TODO</h1>
-      </div>
-      <div id="calendar">
-        <h1>Calendar</h1>
-      </div>
+      <section id="home-view" class="flex">
+        <div id="todo">
+          <h1>ToDo</h1>
+        </div>
+        <div id="calendar">
+          <h1>Calendar</h1>
+        </div>
+      </section>
+      <section id="class-view" class="hidden">
+        <h1>Classes</h1>
+        <button id="add-class-btn" class="small-btn">Add Class</button>
+      </section>
+      <section id="add-class-view" class="hidden flex">
+        <form>
+          <div class="input">
+            <label for="name">Name</label>
+            <input type="text" placeholder="CSE 143" id="name" required>
+          </div>
+          <div class="input">
+            <label for="color">Color</label>
+            <input type="color" id="color" value="#ff0000" required>
+          </div>
+          <button type="button" id="submit-class-btn" class="small-btn">Add Class</button>
+        </form>
+      </section>
+      <section id="error-view" class="hidden">
+        <h2>An error occurred, please refresh the page and try again!</h2>
+        <h3>Details: </h3>
+      </section>
     </main>
   </body>
 

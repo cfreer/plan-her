@@ -9,13 +9,17 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(multer().none());
 
-app.get("/boxes", async function(req, res) {
+app.post("/add/class", async function(req, res) {
   try {
-    // let db = await getDBConnection();
-    // let qry = "SELECT description FROM boxes ORDER BY RANDOM() LIMIT 30";
-    // let rows = await db.all(qry);
+    console.log("call");
+    let name = req.body.name;
+    let color = req.body.color;
+    console.log(name, color);
+    let db = await getDBConnection();
+    let qry = "INSERT INTO classes VALUES (?, ?)";
+    await db.run(qry, [name, color]);
 
-    // res.type("json").send(rows);
+    res.type("text").send("success");
   } catch (error) {
     console.log(error);
     res.type("text");
@@ -30,7 +34,7 @@ app.get("/boxes", async function(req, res) {
  */
 async function getDBConnection() {
   const db = await sqlite.open({
-    filename: "boxes.db",
+    filename: "tables.db",
     driver: sqlite3.Database
   });
 
