@@ -35,7 +35,7 @@
         <form>
           <div class="input">
             <label for="task-name">Name</label>
-            <input type="text" placeholder="CSE 143" id="task-name" required>
+            <input type="text" placeholder="hw 4" id="task-name" required>
           </div>
           <div class="input">
             <label for="task-class">Class</label>
@@ -44,9 +44,23 @@
           </div>
           <div class="input">
             <label for="due-date">Due Date</label>
-            <input type="datetime-local" id="due-date">
+            <input type="datetime-local" id="due-date" required>
           </div>
-          <button type="button" id="submit-task-btn" class="small-btn">Add Task</button>
+          <div class="input">
+            <label for="repeats">Repeats Every</label>
+            <div id="repeats">
+              <p class="day">Mo</p>
+              <p class="day">Tu</p>
+              <p class="day">We</p>
+              <p class="day">Th</p>
+              <p class="day">Fr</p>
+              <p class="day">Sa</p>
+              <p class="day">Su</p>
+            </div>
+          </div>
+          <div class="button">
+            <button type="button" id="submit-task-btn" class="small-btn">Add Task</button>
+          </div>
         </form>
       </section>
 
@@ -68,7 +82,9 @@
             <label for="color">Color</label>
             <input type="color" id="color" value="#ff0000" required>
           </div>
-          <button type="button" id="submit-class-btn" class="small-btn">Add Class</button>
+          <div class="button">
+            <button type="button" id="submit-class-btn" class="small-btn">Add Class</button>
+          </div>
         </form>
       </section>
 
