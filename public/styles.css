@@ -47,6 +47,16 @@ h1 {
   margin: 10px;
 }
 
+p {
+  font-family: kb-gobble-day;
+  font-size: 25px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 1px black;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
+}
+
 label {
   font-family: kb-gobble-day;
   font-weight: bold;
@@ -70,6 +80,7 @@ label {
 }
 
 .small-btn {
+  padding-top: 2px;
   font-size: 18px;
   width: 80px;
   height: 30px;
@@ -85,11 +96,17 @@ label {
 }
 
 #class-view {
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #add-class-view {
   align-items: center;
   flex-direction: column;
   margin: 10px;
+}
+
+#class-header {
+  display: flex;
+  align-items: center;
 }

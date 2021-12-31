@@ -23,6 +23,37 @@
   }
 
   /**
+   * Requests the classes from the database.
+   */
+  function requestClasses() {
+    let url = "/classes";
+    fetch(url)
+      .then(statusCheck)
+      .then(resp => resp.json())
+      .then(addClasses)
+      .catch(handleError);
+  }
+
+  /**
+   * Adds the classes to the classes view.
+   * @param {JSON} classesData - data about the classes.
+   */
+  function addClasses(classesData) {
+    let classes = id("classes");
+    classes.innerHTML = "";
+    for (let i = 0; i < classesData.length; i++) {
+      let classData = classesData[i];
+      console.log(classData);
+      let classElement = gen("div");
+      let name = gen("p");
+      name.textContent = classData.class;
+      name.style.color = classData.color;
+      classElement.appendChild(name);
+      classes.appendChild(classElement);
+    }
+  }
+
+  /**
    * Submits the class to the database.
    */
   function submitClass() {
@@ -36,7 +67,18 @@
       fetch(url, {method: "POST", body: data})
         .then(statusCheck)
         .then(resp => resp.text())
+        .then(processSubmitClass)
         .catch(handleError);
+    }
+  }
+
+  /**
+   * Switches the user back to the class view.
+   * @param {String} response - response from the server. Should always be "success".
+   */
+  function processSubmitClass(response) {
+    if (response === "success") {
+      switchViews("class-view");
     }
   }
 
@@ -63,6 +105,7 @@
    * @param {String} viewId - the id of the view to be switched to.
    */
   function switchViews(viewId) {
+    console.log(viewId);
     for (let i = 0; i < VIEWS.length; i++) {
       let view = VIEWS[i];
       let viewElement = id(view);
@@ -73,6 +116,10 @@
         hide(viewElement);
         viewElement.classList.remove("flex");
       }
+    }
+
+    if (viewId === "class-view") {
+      requestClasses();
     }
   }
 

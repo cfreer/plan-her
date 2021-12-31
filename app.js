@@ -11,15 +11,25 @@ app.use(multer().none());
 
 app.post("/add/class", async function(req, res) {
   try {
-    console.log("call");
     let name = req.body.name;
     let color = req.body.color;
-    console.log(name, color);
     let db = await getDBConnection();
     let qry = "INSERT INTO classes VALUES (?, ?)";
     await db.run(qry, [name, color]);
-
     res.type("text").send("success");
+  } catch (error) {
+    console.log(error);
+    res.type("text");
+    res.status(500).send("An error occurred on the server. Try again later.");
+  }
+});
+
+app.get("/classes", async function(req, res) {
+  try {
+    let db = await getDBConnection();
+    let qry = "SELECT * FROM classes";
+    let rows = await db.all(qry);
+    res.type("json").send(rows);
   } catch (error) {
     console.log(error);
     res.type("text");
