@@ -88,9 +88,13 @@
     let tasks = id("tasks");
     tasks.innerHTML = "";
     for (let i = 0; i < tasksData.length; i++) {
+      let checkbox = gen("input");
+      checkbox.type = "checkbox";
+      checkbox.addEventListener("click", checkBoxClicked);
       let taskData = tasksData[i];
       let taskElement = gen("div");
       taskElement.id = taskData.id;
+      taskElement.classList.add("task");
       let data = gen("div");
       let dueDate = getDate(taskData.due_date);
       let taskClass = getPElement(taskData.class);
@@ -98,10 +102,20 @@
       taskClass.classList.add("class");
       data.appendChild(getPElement(taskData.name));
       data.appendChild(getPElement(dueDate));
+      taskElement.appendChild(checkbox);
       taskElement.appendChild(data);
       taskElement.appendChild(taskClass);
       tasks.appendChild(taskElement);
     }
+  }
+
+  /**
+   * Marks the task checked as complete.
+   */
+  function checkBoxClicked() {
+    let isChecked = this.checked;
+    console.log(this.parentNode);
+    this.parentNode.classList.toggle("checked");
   }
 
   /**

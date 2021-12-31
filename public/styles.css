@@ -88,6 +88,7 @@ label {
   padding-top: 2px;
   margin-top: 0px;
   margin-bottom: 3px;
+  margin-right: 0px;
   font-size: 18px;
   width: 80px;
   height: 30px;
@@ -102,10 +103,38 @@ label {
   margin-bottom: 15px;
 }
 
+#tasks p {
+  font-size: 19px;
+  margin-bottom: 1px;
+  margin-top: 1px;
+}
+
 .class {
   text-shadow: 1px 1px 1px black;
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: black;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+}
+
+.task input {
+  width: 20px;
+  height: 20px;
+}
+
+.task div {
+  width: 75%;
+}
+
+.task > p {
+  width: 20%;
+}
+
+.checked p {
+  text-decoration: line-through;
 }
 
 .button {
@@ -143,6 +172,7 @@ label {
 
 #class-header, #todo-header {
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
