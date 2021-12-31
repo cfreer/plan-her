@@ -1,16 +1,6 @@
-/*
- * Name: Caroline Freer and Ryan Khamneian
- * Date: November 29, 2021
- * Section: CSE 154 AE Tim Mandzyuk & Nikola Bojanic and AB Shriya Kurpad & Abdul Itani
- *
- * This is the JS to implement the UI for our Nozama store. It allows the user to buy items,
- * sign in, log out, create an account sell items, see transaction history, filter items,
- * and more.
- */
-
 "use strict";
 (function() {
-  const VIEWS = ["home-view", "class-view", "add-class-view", "error-view"];
+  const VIEWS = ["home-view", "class-view", "add-class-view", "add-task-view", "error-view"];
 
   window.addEventListener("load", onLoad);
 
@@ -39,11 +29,11 @@
    * @param {JSON} classesData - data about the classes.
    */
   function addClasses(classesData) {
+    console.log(classesData);
     let classes = id("classes");
     classes.innerHTML = "";
     for (let i = 0; i < classesData.length; i++) {
       let classData = classesData[i];
-      console.log(classData);
       let classElement = gen("div");
       let name = gen("p");
       name.textContent = classData.class;
@@ -57,7 +47,7 @@
    * Submits the class to the database.
    */
   function submitClass() {
-    let name = id("name").value;
+    let name = id("class-name").value;
     let color = id("color").value;
     if (name !== "") {
       let data = new FormData();
@@ -72,15 +62,6 @@
     }
   }
 
-  /**
-   * Switches the user back to the class view.
-   * @param {String} response - response from the server. Should always be "success".
-   */
-  function processSubmitClass(response) {
-    if (response === "success") {
-      switchViews("class-view");
-    }
-  }
 
   /**
    * Sets up the buttons to switch views when clicked.
@@ -91,6 +72,17 @@
       id(button).addEventListener("click", switchViewsClicked);
     }
   }
+
+  /**
+   * Switches the user back to the class view.
+   * @param {String} response - response from the server. Should always be "success".
+   */
+     function processSubmitClass(response) {
+      if (response === "success") {
+        switchViews("class-view");
+      }
+    }
+
 
   /**
    * Switches to the view corresponding to the button clicked.
@@ -105,7 +97,6 @@
    * @param {String} viewId - the id of the view to be switched to.
    */
   function switchViews(viewId) {
-    console.log(viewId);
     for (let i = 0; i < VIEWS.length; i++) {
       let view = VIEWS[i];
       let viewElement = id(view);
@@ -121,6 +112,7 @@
     if (viewId === "class-view") {
       requestClasses();
     }
+
   }
 
   /**

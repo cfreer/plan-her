@@ -20,11 +20,34 @@
     <main>
       <section id="home-view" class="flex">
         <div id="todo">
-          <h1>ToDo</h1>
+          <div id="todo-header">
+            <h1>ToDo</h1>
+            <button id="add-task-btn" class="small-btn">Add Task</button>
+          </div>
+          <div id="tasks"></div>
         </div>
         <div id="calendar">
           <h1>Calendar</h1>
         </div>
+      </section>
+
+      <section id="add-task-view" class="hidden">
+        <form>
+          <div class="input">
+            <label for="task-name">Name</label>
+            <input type="text" placeholder="CSE 143" id="task-name" required>
+          </div>
+          <div class="input">
+            <label for="task-class">Class</label>
+            <select id="task-class">
+            </select>
+          </div>
+          <div class="input">
+            <label for="due-date">Due Date</label>
+            <input type="datetime-local" id="due-date">
+          </div>
+          <button type="button" id="submit-task-btn" class="small-btn">Add Task</button>
+        </form>
       </section>
 
       <section id="class-view" class="hidden">
@@ -38,8 +61,8 @@
       <section id="add-class-view" class="hidden flex">
         <form>
           <div class="input">
-            <label for="name">Name</label>
-            <input type="text" placeholder="CSE 143" id="name" required>
+            <label for="class-name">Name</label>
+            <input type="text" placeholder="CSE 143" id="class-name" required>
           </div>
           <div class="input">
             <label for="color">Color</label>

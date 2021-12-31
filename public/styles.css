@@ -100,13 +100,17 @@ label {
   flex-direction: column;
 }
 
+#due-date {
+  width: 300px;
+}
+
 #add-class-view {
   align-items: center;
   flex-direction: column;
   margin: 10px;
 }
 
-#class-header {
+#class-header, #todo-header {
   display: flex;
   align-items: center;
 }
