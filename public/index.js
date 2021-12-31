@@ -1,6 +1,8 @@
 "use strict";
 (function() {
   const VIEWS = ["home-view", "class-view", "add-class-view", "add-task-view", "error-view"];
+  const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug",
+                  "Sept", "Oct", "Nov", "Dec"];
 
   window.addEventListener("load", onLoad);
 
@@ -10,10 +12,21 @@
   function onLoad() {
     setUpBtns();
     setUpDays();
+    setUpCalendar();
     requestClasses();
     requestTasks();
     id("submit-class-btn").addEventListener("click", submitClass);
     id("submit-task-btn").addEventListener("click", submitTask);
+  }
+
+  /**
+   * Sets up the calendar for the current month.
+   */
+  function setUpCalendar() {
+    let date = new Date();
+    let month = MONTHS[date.getMonth()];
+    let year = date.getFullYear();
+    id("month").textContent = month + " " + year;
   }
 
   /**

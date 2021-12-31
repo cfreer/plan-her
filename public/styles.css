@@ -187,3 +187,9 @@ label {
 #due-date {
   width: 303px;
 }
+
+#days {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
