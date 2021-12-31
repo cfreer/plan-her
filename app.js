@@ -57,9 +57,25 @@ app.post("/add/task", async function(req, res) {
 app.get("/tasks", async function(req, res) {
   try {
     let db = await getDBConnection();
-    let qry = "SELECT * FROM classes c, tasks t WHERE t.class = c.class";
+    let qry = "SELECT * FROM classes c, tasks t WHERE t.class = c.class " +
+              "ORDER BY completed, due_date";
     let rows = await db.all(qry);
     res.type("json").send(rows);
+  } catch (error) {
+    console.log(error);
+    res.type("text");
+    res.status(500).send("An error occurred on the server. Try again later.");
+  }
+});
+
+app.post("/toggle/check", async function(req, res) {
+  try {
+    let id = req.body.id;
+    let checked = req.body.checked;
+    let db = await getDBConnection();
+    let qry = "UPDATE tasks SET completed = ? WHERE id = ?";
+    await db.run(qry, [checked, id]);
+    res.type("text").send("success");
   } catch (error) {
     console.log(error);
     res.type("text");

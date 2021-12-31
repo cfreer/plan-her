@@ -31,6 +31,7 @@ body {
 }
 
 input, select {
+  margin-right: 150px;
   width: 300px;
   font-size: 18px;
   text-align: center;
@@ -118,11 +119,13 @@ label {
 .task {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .task input {
   width: 20px;
   height: 20px;
+  margin-right: 0px;
 }
 
 .task div {
@@ -140,6 +143,7 @@ label {
 .button {
   width: 308px;
   float: right;
+  margin-right: 150px;
 }
 
 #color {

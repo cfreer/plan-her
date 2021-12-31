@@ -61,6 +61,7 @@
     let classes = id("classes");
     classes.innerHTML = "";
     let taskClasses = id("task-class");
+    taskClasses.innerHTML = "";
     for (let i = 0; i < classesData.length; i++) {
       let classData = classesData[i];
       let classElement = gen("div");
@@ -95,6 +96,10 @@
       let taskElement = gen("div");
       taskElement.id = taskData.id;
       taskElement.classList.add("task");
+      if (taskData.completed) {
+        taskElement.classList.add("checked");
+        checkbox.checked = true;
+      }
       let data = gen("div");
       let dueDate = getDate(taskData.due_date);
       let taskClass = getPElement(taskData.class);
@@ -114,8 +119,22 @@
    */
   function checkBoxClicked() {
     let isChecked = this.checked;
-    console.log(this.parentNode);
-    this.parentNode.classList.toggle("checked");
+    isChecked = isChecked ? 1 : 0;
+    let task = this.parentNode;
+    task.classList.toggle("checked");
+    let id = task.id;
+
+    let data = new FormData();
+    data.append("id", id);
+    data.append("checked", isChecked);
+
+    let url = "/toggle/check";
+    fetch(url, {method: "POST", body: data})
+      .then(statusCheck)
+      .then(function() {
+        requestTasks();
+      })
+      .catch(handleError);
   }
 
   /**
@@ -173,8 +192,9 @@
       let url = "/add/task";
       fetch(url, {method: "POST", body: data})
         .then(statusCheck)
-        .then(resp => resp.text())
-        .then(processSubmitTask)
+        .then(function() {
+          switchViews("home-view");
+        })
         .catch(handleError);
     }
   }
@@ -192,8 +212,9 @@
       let url = "/add/class";
       fetch(url, {method: "POST", body: data})
         .then(statusCheck)
-        .then(resp => resp.text())
-        .then(processSubmitClass)
+        .then(function() {
+          switchViews("class-view");
+        })
         .catch(handleError);
     }
   }
@@ -205,26 +226,6 @@
     for (let i = 0; i < VIEWS.length - 1; i++) {
       let button = VIEWS[i].replace("view", "btn");
       id(button).addEventListener("click", switchViewsClicked);
-    }
-  }
-
-  /**
-   * Switches the user back to the class view if successful.
-   * @param {String} response - response from the server. Should always be "success".
-   */
-  function processSubmitClass(response) {
-    if (response === "success") {
-      switchViews("class-view");
-    }
-  }
-
-  /**
-   * Switches the user back to the home view if successful.
-   * @param {String} response - response from the server. Should always be "success".
-   */
-  function processSubmitTask(response) {
-    if (response === "success") {
-      switchViews("home-view");
     }
   }
 
