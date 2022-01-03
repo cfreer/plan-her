@@ -44,22 +44,26 @@ app.post("/add/task", async function(req, res) {
   try {
     let name = req.body.name;
     let taskClass = req.body.class;
-    let dueDate = new Date(req.body.dueDate);
     let days = req.body.days;
     let dayArray = days.split(",");
-    console.log(dayArray);
     let db = await getDBConnection();
     let endDate = await getEndDate(db, taskClass);
-    if (dayArray[0] === "") {
-      let qry = "INSERT INTO tasks (name, class, due_date, repeated_days) VALUES (?, ?, ?, ?)";
-      await db.run(qry, [name, taskClass, getDate(dueDate), days]);
-    } else {
+    let dueDate = new Date(req.body.dueDate);
+    let qry = "INSERT INTO tasks (name, class, due_date, repeated_days) VALUES (?, ?, ?, ?)";
+    await db.run(qry, [name, taskClass, getTZDate(dueDate), days]);
+    if (dayArray[0] !== "") {
       for (let i = 0; i < dayArray.length; i++) {
         let day = dayArray[i];
+        dueDate = new Date(req.body.dueDate);
+        console.log(getTZDate(dueDate));
+        dueDate = nextDay(dueDate, day);
+        console.log(day);
+        console.log(getTZDate(dueDate));
         while (dueDate.getTime() < endDate.getTime()) {
           let qry = "INSERT INTO tasks (name, class, due_date, repeated_days) VALUES (?, ?, ?, ?)";
-          await db.run(qry, [name, taskClass, getDate(dueDate), days]);
+          await db.run(qry, [name, taskClass, getTZDate(dueDate), days]);
           dueDate = nextDay(dueDate, day);
+          console.log(getTZDate(dueDate));
         }
       }
     }
@@ -102,13 +106,17 @@ app.post("/toggle/check", async function(req, res) {
 
 /**
  * Returns the date of the next given day.
- * @param {Date} date - start date
+ * @param {Date} dueDate - start date
  * @param {String} day - day of the week. ex: Mo
  * @returns {Date} the date of the next given day
  */
-function nextDay(date, day) {
+function nextDay(dueDate, day) {
   day = DAYS.indexOf(day);
-  date.setDate(date.getDate() + (day - (7 - date.getDay())) % 7 + 7);
+  let date = new Date();
+  date.setDate(dueDate.getDate() + (day + (7 - dueDate.getDay())) % 7);
+  if (day === dueDate.getDay()) {
+    date.setDate(date.getDate() + 7)
+  }
   return date;
 }
 
@@ -119,18 +127,22 @@ function nextDay(date, day) {
  * @returns {Date} - the date the class ends.
  */
 async function getEndDate(db, taskClass) {
-  console.log("end");
   let qry = "SELECT end_date FROM classes WHERE class = ?";
   let row = await db.get(qry, [taskClass]);
-  console.log(row);
-  return new Date(row.end_date);
+  return getISODate(new Date(row.end_date));
 }
 
-function getDate(date) {
+function getTZDate(date) {
   const offset = date.getTimezoneOffset();
   date = new Date(date.getTime() - (offset * 60 * 1000));
   date = date.toISOString().replace("T", " ")
     .substring(0, 16);
+  return date;
+}
+
+function getISODate(date) {
+  const offset = date.getTimezoneOffset();
+  date = new Date(date.getTime() + (offset * 60 * 1000));
   return date;
 }
 
