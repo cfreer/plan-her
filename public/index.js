@@ -102,10 +102,12 @@
     let tasks = id("tasks");
     tasks.innerHTML = "";
     for (let i = 0; i < tasksData.length; i++) {
+      let taskData = tasksData[i];
+
       let checkbox = gen("input");
       checkbox.type = "checkbox";
       checkbox.addEventListener("click", checkBoxClicked);
-      let taskData = tasksData[i];
+
       let taskElement = gen("div");
       taskElement.id = taskData.id;
       taskElement.classList.add("task");
@@ -182,6 +184,7 @@
     }
     dueDate = day + " " + dueDate;
     return dueDate;
+
   }
 
   /**
@@ -218,10 +221,12 @@
   function submitClass() {
     let name = id("class-name").value;
     let color = id("color").value;
+    let endDate = id("end-date").value;
     if (name !== "") {
       let data = new FormData();
       data.append("name", name);
       data.append("color", color);
+      data.append("endDate", endDate);
       let url = "/add/class";
       fetch(url, {method: "POST", body: data})
         .then(statusCheck)
@@ -286,6 +291,7 @@
     }
 
     let message = qs("#error-view h3");
+    message.textContent = "Details: ";
     let errorMessage = err.message;
 
     if (errorMessage === "Failed to fetch") {

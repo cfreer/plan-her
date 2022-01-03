@@ -16,6 +16,10 @@ header {
   justify-content: center;
 }
 
+h3 {
+  margin-top: 0px;
+}
+
 button {
   margin: 10px;
   font-family: "Bebas Neue", sans-serif;
@@ -192,4 +196,9 @@ label {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+
+#error-view {
+  align-items: center;
+  flex-direction: column;
 }
