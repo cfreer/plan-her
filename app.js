@@ -51,6 +51,7 @@ app.post("/add/task", async function(req, res) {
     let dueDate = new Date(req.body.dueDate);
     let qry = "INSERT INTO tasks (name, class, due_date, repeated_days) VALUES (?, ?, ?, ?)";
     await db.run(qry, [name, taskClass, getTZDate(dueDate), days]);
+    console.log(dayArray);
     if (dayArray[0] !== "") {
       for (let i = 0; i < dayArray.length; i++) {
         let day = dayArray[i];
@@ -113,10 +114,10 @@ app.post("/toggle/check", async function(req, res) {
  */
 function nextDay(dueDate, day) {
   day = DAYS.indexOf(day);
-  let date = new Date();
+  let date = new Date(dueDate);
   date.setDate(dueDate.getDate() + (day + (7 - dueDate.getDay())) % 7);
   if (day === dueDate.getDay()) {
-    date.setDate(date.getDate() + 7)
+    date.setDate(date.getDate() + 7);
   }
   return date;
 }

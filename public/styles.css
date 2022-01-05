@@ -23,9 +23,10 @@ h3 {
 button {
   margin: 10px;
   font-family: "Bebas Neue", sans-serif;
+  color: black;
   font-size: 22px;
   height: 40px;
-  width: 90px;
+  width: 100px;
 }
 
 body {
@@ -95,7 +96,7 @@ label {
   margin-bottom: 3px;
   margin-right: 0px;
   font-size: 18px;
-  width: 80px;
+  width: 100px;
   height: 30px;
 }
 
@@ -137,7 +138,7 @@ label {
 }
 
 .task > p {
-  width: 20%;
+  width: 40px;
 }
 
 .checked p {

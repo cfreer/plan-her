@@ -169,13 +169,10 @@
    * @returns {String} a better formatted date.
    */
   function getDate(dueDate) {
-    console.log(dueDate);
-    let date = new Date(dueDate);
+    let date = new Date(dueDate.replace(" ", "T"));
     let day = date.getDay();
-    console.log(day);
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     day = days[day];
-    console.log(day);
     dueDate = dueDate.substring(dueDate.indexOf("-") + 1);
     let hours = Number.parseInt(dueDate.split(" ")[1].substring(0, 2));
     let newHours = ((hours + 11) % 12 + 1);
