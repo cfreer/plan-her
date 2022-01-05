@@ -77,6 +77,7 @@ app.post("/add/task", async function(req, res) {
 
 app.get("/tasks", async function(req, res) {
   try {
+    // test
     let db = await getDBConnection();
     let qry = "SELECT * FROM classes c, tasks t WHERE t.class = c.class " +
               "ORDER BY completed, due_date";
