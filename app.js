@@ -45,26 +45,22 @@ app.post("/add/task", async function(req, res) {
     let name = req.body.name;
     let taskClass = req.body.class;
     let days = req.body.days;
+    let table = req.body.table;
     let dayArray = days.split(",");
     let db = await getDBConnection();
     let endDate = await getEndDate(db, taskClass);
     let dueDate = new Date(req.body.dueDate);
-    let qry = "INSERT INTO tasks (name, class, due_date, repeated_days) VALUES (?, ?, ?, ?)";
+    let qry = "INSERT INTO " + table + " (name, class, due_date, repeated_days) VALUES (?, ?, ?, ?)";
     await db.run(qry, [name, taskClass, getTZDate(dueDate), days]);
-    console.log(dayArray);
     if (dayArray[0] !== "") {
       for (let i = 0; i < dayArray.length; i++) {
         let day = dayArray[i];
         dueDate = new Date(req.body.dueDate);
-        console.log(getTZDate(dueDate));
         dueDate = nextDay(dueDate, day);
-        console.log(day);
-        console.log(getTZDate(dueDate));
         while (dueDate.getTime() < endDate.getTime()) {
-          let qry = "INSERT INTO tasks (name, class, due_date, repeated_days) VALUES (?, ?, ?, ?)";
+          let qry = "INSERT INTO " + table + " (name, class, due_date, repeated_days) VALUES (?, ?, ?, ?)";
           await db.run(qry, [name, taskClass, getTZDate(dueDate), days]);
           dueDate = nextDay(dueDate, day);
-          console.log(getTZDate(dueDate));
         }
       }
     }
@@ -78,9 +74,22 @@ app.post("/add/task", async function(req, res) {
 
 app.get("/tasks", async function(req, res) {
   try {
-    // test
     let db = await getDBConnection();
     let qry = "SELECT * FROM classes c, tasks t WHERE t.class = c.class " +
+              "ORDER BY completed, due_date";
+    let rows = await db.all(qry);
+    res.type("json").send(rows);
+  } catch (error) {
+    console.log(error);
+    res.type("text");
+    res.status(500).send("An error occurred on the server. Try again later.");
+  }
+});
+
+app.get("/lectures", async function(req, res) {
+  try {
+    let db = await getDBConnection();
+    let qry = "SELECT * FROM classes c, lectures l WHERE l.class = c.class " +
               "ORDER BY completed, due_date";
     let rows = await db.all(qry);
     res.type("json").send(rows);

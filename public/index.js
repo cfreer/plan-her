@@ -15,6 +15,7 @@
     setUpCalendar();
     requestClasses();
     requestTasks();
+    requestLectures();
     id("submit-class-btn").addEventListener("click", submitClass);
     id("submit-task-btn").addEventListener("click", submitTask);
   }
@@ -62,7 +63,23 @@
     fetch(url)
       .then(statusCheck)
       .then(resp => resp.json())
-      .then(addTasks)
+      .then(function(taskData) {
+        addTasks(taskData, "tasks")
+      })
+      .catch(handleError);
+  }
+
+  /**
+   * Requests the lectures from the database.
+   */
+  function requestLectures() {
+    let url = "/lectures";
+    fetch(url)
+      .then(statusCheck)
+      .then(resp => resp.json())
+      .then(function(lectureData) {
+        addTasks(lectureData, "lectures")
+      })
       .catch(handleError);
   }
 
@@ -97,9 +114,10 @@
   /**
    * Adds the tasks to the home view.
    * @param {JSON} tasksData - data about the tasks.
+   * @param {String} containerId - the id of the container.
    */
-  function addTasks(tasksData) {
-    let tasks = id("tasks");
+  function addTasks(tasksData, containerId) {
+    let tasks = id(containerId);
     tasks.innerHTML = "";
     for (let i = 0; i < tasksData.length; i++) {
       let taskData = tasksData[i];
@@ -184,13 +202,13 @@
     }
     dueDate = day + " " + dueDate;
     return dueDate;
-
   }
 
   /**
    * Submits the task to the database.
    */
   function submitTask() {
+    let isLecture = id("submit-task-btn").textContent !== "Add Task";
     let name = id("task-name").value;
     let taskClass = id("task-class").value;
     let dueDate = id("due-date").value.replace("T", " ");
@@ -205,11 +223,16 @@
       data.append("class", taskClass);
       data.append("dueDate", dueDate);
       data.append("days", days);
+      if (isLecture) {
+        data.append("table", "lectures");
+      } else {
+        data.append("table", "tasks");
+      }
       let url = "/add/task";
       fetch(url, {method: "POST", body: data})
         .then(statusCheck)
         .then(function() {
-          switchViews("home-view");
+          switchViews("home-view", this);
         })
         .catch(handleError);
     }
@@ -231,7 +254,7 @@
       fetch(url, {method: "POST", body: data})
         .then(statusCheck)
         .then(function() {
-          switchViews("class-view");
+          switchViews("class-view", this);
         })
         .catch(handleError);
     }
@@ -245,6 +268,9 @@
       let button = VIEWS[i].replace("view", "btn");
       id(button).addEventListener("click", switchViewsClicked);
     }
+    id("add-lecture-btn").addEventListener("click", function() {
+      switchViews("add-task-view", this)
+    });
   }
 
   /**
@@ -252,14 +278,15 @@
    */
   function switchViewsClicked() {
     let view = this.id.replace("btn", "view");
-    switchViews(view);
+    switchViews(view, this);
   }
 
   /**
    * Shows the given view and hides all other views.
    * @param {String} viewId - the id of the view to be switched to.
+   * @param {HTMLButtonElement} el - the button clicked to bring the user here.
    */
-  function switchViews(viewId) {
+  function switchViews(viewId, el) {
     for (let i = 0; i < VIEWS.length; i++) {
       let view = VIEWS[i];
       let viewElement = id(view);
@@ -276,6 +303,13 @@
       requestClasses();
     } else if (viewId === "home-view") {
       requestTasks();
+      requestLectures();
+    }
+
+    if (el && el.id === "add-lecture-btn") {
+      id("submit-task-btn").textContent = "Add Lecture";
+    } else if (el && el.id === "add-task-btn") {
+      id("submit-task-btn").textContent = "Add Task";
     }
   }
 
@@ -284,7 +318,7 @@
    * @param {Error} err - the error that occured while trying to fetch data.
    */
   function handleError(err) {
-    switchViews("error-view");
+    switchViews("error-view", this);
     for (let i = 0; i < VIEWS.length - 1; i++) {
       let button = VIEWS[i].replace("view", "btn");
       id(button).disabled = true;
