@@ -128,7 +128,7 @@
 
       let taskElement = gen("div");
       taskElement.id = taskData.id;
-      taskElement.classList.add("task");
+      taskElement.classList.add(containerId.slice(0, -1));
       if (taskData.completed) {
         taskElement.classList.add("checked");
         checkbox.checked = true;
@@ -155,17 +155,23 @@
     isChecked = isChecked ? 1 : 0;
     let task = this.parentNode;
     task.classList.toggle("checked");
+    let table = "tasks";
+    if (task.classList.contains("lecture")) {
+      table = "lectures"
+    }
     let id = task.id;
 
     let data = new FormData();
     data.append("id", id);
     data.append("checked", isChecked);
+    data.append("table", table);
 
     let url = "/toggle/check";
     fetch(url, {method: "POST", body: data})
       .then(statusCheck)
       .then(function() {
         requestTasks();
+        requestLectures();
       })
       .catch(handleError);
   }

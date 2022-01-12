@@ -127,23 +127,23 @@ label {
   -webkit-text-stroke-color: black;
 }
 
-.task {
+.task, .lecture {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.task input {
+.task input, .lecture input {
   width: 20px;
   height: 20px;
   margin-right: 0px;
 }
 
-.task div {
+.task div, .lecture div {
   width: 200px;
 }
 
-.task > p {
+.task > p, .lecture > p {
   width: 40px;
 }
 

@@ -104,8 +104,9 @@ app.post("/toggle/check", async function(req, res) {
   try {
     let id = req.body.id;
     let checked = req.body.checked;
+    let table = req.body.table;
     let db = await getDBConnection();
-    let qry = "UPDATE tasks SET completed = ? WHERE id = ?";
+    let qry = "UPDATE " + table + " SET completed = ? WHERE id = ?";
     await db.run(qry, [checked, id]);
     res.type("text").send("success");
   } catch (error) {
