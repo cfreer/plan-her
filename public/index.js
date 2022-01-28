@@ -12,22 +12,11 @@
   function onLoad() {
     setUpBtns();
     setUpDays();
-    setUpCalendar();
     requestClasses();
     requestTasks();
     requestLectures();
     id("submit-class-btn").addEventListener("click", submitClass);
     id("submit-task-btn").addEventListener("click", submitTask);
-  }
-
-  /**
-   * Sets up the calendar for the current month.
-   */
-  function setUpCalendar() {
-    let date = new Date();
-    let month = MONTHS[date.getMonth()];
-    let year = date.getFullYear();
-    id("month").textContent = month + " " + year;
   }
 
   /**

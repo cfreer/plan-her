@@ -171,7 +171,7 @@ label {
 }
 
 #home-view {
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 #class-view {
@@ -197,12 +197,6 @@ label {
 
 #due-date {
   width: 303px;
-}
-
-#days {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
 }
 
 #error-view {
