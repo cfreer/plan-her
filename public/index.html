@@ -1,106 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <title>PlanHer</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
-    <script src="index.js"></script>
-  </head>
+    <head>
+        <meta charset="utf-8">
+        <title>PlanHer</title>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+        <script src="index.js"></script>
+    </head>
 
-  <body>
-    <header>
-      <nav>
-        <button id="home-btn">Home</button>
-        <button id="class-btn">Classes</button>
-      </nav>
-    </header>
-    <main>
-      <section id="home-view" class="flex">
-        <div id="hw">
-          <div id="hw-header">
-            <h1>Homework</h1>
-            <button id="add-task-btn" class="small-btn">Add Task</button>
-          </div>
-          <div id="tasks"></div>
-        </div>
-        <div id="lecture">
-          <div id="lecture-header">
-            <h1>Lectures</h1>
-            <button id="add-lecture-btn" class="small-btn">Add Lecture</button>
-          </div>
-          <div id="lectures"></div>
-        </div>
-      </section>
+    <body>
+        <header>
+            <nav>
+                <button id="home-btn">Home</button>
+                <button id="class-btn">Classes</button>
+            </nav>
+        </header>
+        <main>
+            <section id="home-view" class="flex">
+                <div id="hw">
+                    <div id="hw-header">
+                        <h1>Homework</h1>
+                        <button id="add-task-btn" class="small-btn">Add Task</button>
+                    </div>
+                    <div id="tasks"></div>
+                </div>
+                <div id="lecture">
+                    <div id="lecture-header">
+                        <h1>Lectures</h1>
+                        <button id="add-lecture-btn" class="small-btn">Add Lecture</button>
+                    </div>
+                    <div id="lectures"></div>
+                </div>
+              </section>
 
-      <section id="add-task-view" class="hidden">
-        <form>
-          <div class="input">
-            <label for="task-name">Name</label>
-            <input type="text" placeholder="hw 4" id="task-name" required>
-          </div>
-          <div class="input">
-            <label for="task-class">Class</label>
-            <select id="task-class">
-            </select>
-          </div>
-          <div class="input">
-            <label for="due-date">Due Date</label>
-            <input type="datetime-local" id="due-date" required>
-          </div>
-          <div class="input">
-            <label for="repeats">Repeats Every</label>
-            <div id="repeats">
-              <p class="day">Mo</p>
-              <p class="day">Tu</p>
-              <p class="day">We</p>
-              <p class="day">Th</p>
-              <p class="day">Fr</p>
-              <p class="day">Sa</p>
-              <p class="day">Su</p>
-            </div>
-          </div>
-          <div class="button">
-            <button type="button" id="submit-task-btn" class="small-btn">Add Task</button>
-          </div>
-        </form>
-      </section>
+            <section id="add-task-view" class="hidden">
+                <form>
+                    <div class="input">
+                        <label for="task-name">Name</label>
+                        <input type="text" placeholder="hw 4" id="task-name" required>
+                    </div>
+                    <div class="input">
+                        <label for="task-class">Class</label>
+                        <select id="task-class">
+                        </select>
+                    </div>
+                    <div class="input">
+                        <label for="due-date">Due Date</label>
+                        <input type="datetime-local" id="due-date" required>
+                    </div>
+                    <div class="input">
+                        <label for="repeats">Repeats Every</label>
+                        <div id="repeats">
+                            <p class="day">Mo</p>
+                            <p class="day">Tu</p>
+                            <p class="day">We</p>
+                            <p class="day">Th</p>
+                            <p class="day">Fr</p>
+                            <p class="day">Sa</p>
+                            <p class="day">Su</p>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <button type="button" id="submit-task-btn" class="small-btn">Add Task</button>
+                    </div>
+                </form>
+            </section>
 
-      <section id="class-view" class="hidden">
-        <div id="class-header">
-          <h1>Classes</h1>
-          <button id="add-class-btn" class="small-btn">Add Class</button>
-        </div>
-        <div id="classes"></div>
-      </section>
+            <section id="class-view" class="hidden">
+                <div id="class-header">
+                    <h1>Classes</h1>
+                    <button id="add-class-btn" class="small-btn">Add Class</button>
+                </div>
+                <div id="classes"></div>
+            </section>
 
-      <section id="add-class-view" class="hidden flex">
-        <form>
-          <div class="input">
-            <label for="class-name">Name</label>
-            <input type="text" placeholder="CSE 143" id="class-name" required>
-          </div>
-          <div class="input">
-            <label for="color">Color</label>
-            <input type="color" id="color" value="#ff0000" required>
-          </div>
-          <div class="input">
-            <label for="end-date">End Date</label>
-            <input type="date" id="end-date" required>
-          </div>
-          <div class="button">
-            <button type="button" id="submit-class-btn" class="small-btn">Add Class</button>
-          </div>
-        </form>
-      </section>
+            <section id="add-class-view" class="hidden flex">
+                <form>
+                    <div class="input">
+                        <label for="class-name">Name</label>
+                        <input type="text" placeholder="CSE 143" id="class-name" required>
+                    </div>
+                    <div class="input">
+                        <label for="color">Color</label>
+                        <input type="color" id="color" value="#ff0000" required>
+                    </div>
+                    <div class="input">
+                        <label for="end-date">End Date</label>
+                        <input type="date" id="end-date" required>
+                    </div>
+                    <div class="button">
+                        <button type="button" id="submit-class-btn" class="small-btn">Add Class</button>
+                    </div>
+                </form>
+            </section>
 
-      <section id="error-view" class="hidden flex">
-        <h2>An error occurred, please refresh the page and try again!</h2>
-        <h3>Details: </h3>
-      </section>
-    </main>
-  </body>
+            <section id="error-view" class="hidden flex">
+                <h2>An error occurred, please refresh the page and try again!</h2>
+                <h3>Details: </h3>
+            </section>
+        </main>
+    </body>
 
 </html>

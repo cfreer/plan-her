@@ -4,7 +4,6 @@ const sqlite = require("sqlite");
 const sqlite3 = require("sqlite3");
 const app = express();
 const multer = require("multer");
-const e = require("express");
 const DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
 app.use(express.urlencoded({extended: true}));
