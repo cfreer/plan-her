@@ -1,8 +1,6 @@
 "use strict";
 (function() {
   const VIEWS = ["home-view", "class-view", "add-class-view", "add-task-view", "error-view"];
-  const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug",
-                  "Sept", "Oct", "Nov", "Dec"];
 
   window.addEventListener("load", onLoad);
 
@@ -190,7 +188,7 @@
     let hours = Number.parseInt(dueDate.split(" ")[1].substring(0, 2));
     let newHours = ((hours + 11) % 12 + 1);
     dueDate = dueDate.replace(" " + hours.toString(), " " + newHours.toString());
-    if (newHours === hours) {
+    if ((newHours === hours && hours !== 12) || hours === 0) {
       dueDate += " AM";
     } else {
       dueDate += " PM";

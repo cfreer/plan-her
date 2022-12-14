@@ -56,7 +56,7 @@ app.post("/add/task", async function(req, res) {
         let day = dayArray[i];
         dueDate = new Date(req.body.dueDate);
         dueDate = nextDay(dueDate, day);
-        while (dueDate.getTime() < endDate.getTime()) {
+        while (dueDate.getTime() <= endDate.getTime()) {
           let qry = "INSERT INTO " + table + " (name, class, due_date, repeated_days) VALUES (?, ?, ?, ?)";
           await db.run(qry, [name, taskClass, getTZDate(dueDate), days]);
           dueDate = nextDay(dueDate, day);
